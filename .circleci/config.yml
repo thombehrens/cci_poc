@@ -58,10 +58,11 @@ jobs:
           path: ~/junit
       - run:
           name: Delete Useless Scratch Org
-          command: sfdx force:org:delete -u circle_build_$CIRCLE_BUILD_NUM -p
+          command: |
+            sfdx force:org:delete -u circle_build_$CIRCLE_BUILD_NUM -p
+
 ### Uncomment the following if performing deployments
 #deployment:
-#  override:
-#    - sfdx force:source:convert -r force-app -d testDeploy
-#    - . cleanupDeploy.sh
-#    - sfdx force:mdapi:deploy -d testDeploy/ -u deploy -w 2
+  override:
+    - sfdx force:source:convert -r force-app -d testDeploy
+    - sfdx force:mdapi:deploy -d testDeploy/ -u deploy -w 2
